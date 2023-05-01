@@ -2,19 +2,20 @@
 async function getCoords(){
     pos = await new Promise((resolve, reject) => {
         navigator.geolocation.getCurrentPosition(resolve, reject)
-    });
+    })
     return [pos.coords.latitude, pos.coords.longitude]
 }
 
 //console.log(getCoords());                              
 
-        
-// get user's coordinates
-
+// Get the user's time:
 function userTime() {
-    return new Date().getHours();
+    const now = new Date()
+    return now.getHours()
 }
-// Get the user's time:                                                              
+
+// helper functions
+// check time of day
 function getMealTime(){
     const tod = userTime()
     
@@ -22,17 +23,15 @@ function getMealTime(){
     else if (tod > 16) {return 'dinner'}
     else if (tod > 11) {return 'lunch'}
     else {return 'breakfast'}
-    
-    // A ternary is another way to write an if-else statement
-    // Another way to write the above lines would to refactor it as:
-    // return tod > 20 ? 'late-night snack' : tod > 16 ? 'dinner' : tod > 11 ? 'lunch' : 'breakfast' // <--- this is an example of a ternary
 }
-    
-  //console.log(getMealTime())                   
+// return tod > 20 ? 'late-night snack' : tod > 16 ? 'dinner' : tod > 11 ? 'lunch' : 'breakfast' // <--- this is an example of a ternary   
+// A ternary is another way to write an if-else statement
+// Another way to write the above lines would to refactor it as:
+
+//console.log(getMealTime())                   
 
 
-// helper functions
-// check time of day
+
 
 
 // build ads
@@ -44,8 +43,7 @@ function buildAd1(){
     inner.innerHTML = `We've got the best <span>${mealTime}</span> in town`
     content.append(inner)
 }
-buildAd1()
-
+//buildAd1()
 
 // Build Ad 2                                                             
 function buildAd2(coordinates){
@@ -57,7 +55,7 @@ function buildAd2(coordinates){
     content.append(inner)
 }
 
-console.log(buildAd2(getCoords()))
+//console.log(buildAd2(getCoords()))
 
 
 
@@ -65,7 +63,7 @@ console.log(buildAd2(getCoords()))
 // On load, build ads:                                                             
 window.onload = async () => {
     buildAd1()
-    const coords = await getCoords()
+        const coords = await getCoords()
     buildAd2(coords)
 }
 
